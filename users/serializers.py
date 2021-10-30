@@ -5,7 +5,7 @@ from users.models import UserAsks
 
 
 class AnswerForUserSerializers(serializers.ModelSerializer):
-    """ Ответ Суппорта use: >>> UserAskSerializer"""
+    """ Ответ суппорта use: >>> UserAskSerializer"""
 
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
@@ -15,7 +15,7 @@ class AnswerForUserSerializers(serializers.ModelSerializer):
 
 
 class UserAskSerializers(serializers.ModelSerializer):
-    """ Вопрос Юзера use: >>> TicketSerializer >>> SupportDetailSerializer """
+    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportDetailSerializer """
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
@@ -24,7 +24,7 @@ class UserAskSerializers(serializers.ModelSerializer):
 
 
 class UserSerializers(serializers.ModelSerializer):
-    """  Описание Юзера use: >>> SupportSerializer >>> SupportDetailSerializer"""
+    """  Описание пользователя use: >>> SupportSerializer >>> SupportDetailSerializer"""
 
     class Meta:
         model = User
@@ -32,7 +32,7 @@ class UserSerializers(serializers.ModelSerializer):
 
 
 class UserAskSerializer(serializers.ModelSerializer):
-    """ Serializer юзер задает вопрос api/user/message/id/ """
+    """ Serializer пользователь задает вопрос api/user/message/id/ """
 
     user_ask = serializers.CharField(max_length=255, write_only=True, style={'base_template': 'textarea.html'})
     support_answer = AnswerForUserSerializers(many=True, read_only=True)
