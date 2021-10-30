@@ -3,6 +3,7 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
 import json
+
 from support_system.models import Ticket
 
 
@@ -47,3 +48,20 @@ class ListCreateTicketTest(TestCase):
         self.client.logout()
         response = self.client.post(url, data=json.dumps(data), content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, msg=response.data)
+
+
+class UserAskTest(TestCase):
+    def setUp(self) -> None:
+        self.user = User.objects.create_user('test name_1')
+
+    def test_user_ask(self):
+        self.client.force_login(self.user)
+        data = {
+            'title': 'test title user ask',
+            'content': 'test content user ask',
+            'support_answer': 'test support answer user ask',
+            'user_ask': 'test user usk user ask'
+        }
+        url = reverse('user-ask', kwargs={"pk": self.user.id})
+        response = self.client.post(url, data=data)
+        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)
