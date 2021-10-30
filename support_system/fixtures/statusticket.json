@@ -1,0 +1,23 @@
+[
+  {
+    "model": "support_system.statusticket",
+    "pk": 1,
+    "fields": {
+      "name": "Тикет решен"
+    }
+  },
+  {
+    "model": "support_system.statusticket",
+    "pk": 2,
+    "fields": {
+      "name": "Тикет не решен"
+    }
+  },
+  {
+    "model": "support_system.statusticket",
+    "pk": 3,
+    "fields": {
+      "name": "Тикет заморожен"
+    }
+  }
+]
