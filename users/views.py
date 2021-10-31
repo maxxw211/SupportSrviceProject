@@ -13,8 +13,6 @@ class ListCreateTicket(ListCreateAPIView):
     и всю информацию связанную с ними.
     Используемые endpoints:
     api/user/all/ - Текущий пользователь видит все свои тикеты
-    api/user/detail/1/ - Детальная иформация по каждому отдельно взятому тикету ( по id тикета)
-    api/user/message/1/ -Пользователь пишет доп. вопрос по тикету (по id тикета)
     """
 
     serializer_class = TicketSerializer
@@ -31,10 +29,7 @@ class ListCreateTicket(ListCreateAPIView):
 class TicketDetailView(ListAPIView):
     """ Пользователь может просматривать историю тикета
     Используемые endpoints:
-    api/user/all/ - Текущий пользователь видит все свои тикеты
-    api/user/detail/1/ - Детальная иформация по конкретному тикету ( по его id)
-    api/user/message/1/ -Пользователь пишет доп. вопрос по тикету (по его id)
-
+    api/user/detail/1/ - Детальная иформация по каждому отдельно взятому тикету ( по id тикета)
     """
 
     serializer_class = TicketSerializer
@@ -48,10 +43,7 @@ class TicketDetailView(ListAPIView):
 class UserAsk(ListCreateAPIView):
     """ Сообщение пользователя
     Используемые endpoints:
-    api/user/all/ - Текущий пользователь видит все свои тикеты
-    api/user/detail/1/ - Детальная иформация по каждому конкретному тикету ( по его id)
     api/user/message/1/ -Пользователь может написать доп. вопрос по тикету (по его id)
-
     """
 
     permission_classes = [IsAuthenticated, ]
