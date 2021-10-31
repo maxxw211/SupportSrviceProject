@@ -1,5 +1,3 @@
-from collections import OrderedDict
-
 from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
@@ -84,5 +82,4 @@ class UserAskTest(TestCase):
             "support_answer": []
         }
         response = self.client.post(url, data=data)
-        print(response.data)
         self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

@@ -21,7 +21,6 @@ class SupportViewTicketsListStatus(ListAPIView):
     permission_classes = [IsAdminUser, ]
 
     def get_queryset(self):
-        get_object_or_404(Ticket, status_ticket=self.kwargs['pk'])
         return Ticket.objects.filter(status_ticket=self.kwargs['pk'])
 
 
