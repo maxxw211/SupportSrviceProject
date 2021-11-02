@@ -3,12 +3,13 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
 import json
-
+from datetime import datetime
 from support_system.models import Ticket
+from users.views import UserAsk
 
 
 class ListCreateTicketTest(TestCase):
-    def setUp(self) -> None:
+    def setUp(self, microsecond=0) -> None:
         self.user = User.objects.create_user('test name')
 
     def test_list_create_ticket(self):
@@ -31,16 +32,20 @@ class ListCreateTicketTest(TestCase):
     def test_ticket_detail_view(self):
         self.client.force_login(self.user)
         data = {
+            'title': 'Без названия',
             'content': 'test test content',
+            # 'created_at': ''.join(datetime.now().isoformat(sep='T').split('.')[:-1]),
             'status_ticket': 'Тикет не решен',
             'support_answer': [],
             'user_ask': [],
             'user': self.user.id,
         }
         url = reverse('list-create-ticket')
-        response = self.client.post(url, data=data)
+        response = self.client.post(url, data=data, content_type="application/json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED, msg=response.data)
+        self.assertEqual(response.data['title'], data['title'])
         self.assertEqual(response.data['content'], data['content'])
+        # self.assertEqual(response.data['created_at'], data['created_at'])
         self.assertEqual(response.data['status_ticket'], data['status_ticket'])
         self.assertEqual(response.data['support_answer'], data['support_answer'])
         self.assertEqual(response.data['user_ask'], data['user_ask'])
@@ -69,17 +74,4 @@ class TicketDetailViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, msg=response.data)
 
 
-class UserAskTest(TestCase):
-    def setUp(self) -> None:
-        self.user = User.objects.create_user('test name_1')
 
-    def test_user_ask(self):
-        self.client.force_login(self.user)
-        url = reverse('user-ask', kwargs={"pk": self.user.id})
-        data = {
-            "title": "Task 1",
-            "content": "Text tack 1",
-            "support_answer": []
-        }
-        response = self.client.post(url, data=data)
-        self.assertEqual(response.status_code, status.HTTP_400_BAD_REQUEST)

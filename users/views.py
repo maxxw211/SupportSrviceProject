@@ -52,7 +52,7 @@ class UserAsk(ListCreateAPIView):
     def get_queryset(self):
         try:
             id = self.kwargs['pk']
-            queryset = Ticket.objects.get(id=id)
+            queryset = Ticket.objects.filter(user_id=self.request.user.pk).get(id=id)
             return queryset, id
         except Ticket.DoesNotExist:
             return None

@@ -15,14 +15,14 @@ class SupportAnswerSerializers(serializers.ModelSerializer):
 
 class TicketSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
-    update_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
+    updated_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
     support_answer = SupportAnswerSerializers(many=True, read_only=True)
     user_ask = UserAskSerializers(many=True, read_only=True)
 
     class Meta:
         model = Ticket
-        fields = ['id', 'title', 'content', 'created_at', 'update_at', 'status_ticket', 'support_answer', 'user_ask']
+        fields = ['id', 'title', 'content', 'created_at', 'updated_at', 'status_ticket', 'support_answer', 'user_ask']
 
 
 class SupportSerializer(serializers.ModelSerializer):

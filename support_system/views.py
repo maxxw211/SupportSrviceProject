@@ -1,3 +1,4 @@
+from django.http import Http404
 from rest_framework import status
 from rest_framework.generics import ListAPIView, get_object_or_404
 from rest_framework.permissions import IsAdminUser
@@ -21,7 +22,9 @@ class SupportViewTicketsListStatus(ListAPIView):
     permission_classes = [IsAdminUser, ]
 
     def get_queryset(self):
-        return Ticket.objects.filter(status_ticket=self.kwargs['pk'])
+        if self.kwargs['pk'] not in range(1, 4):
+            raise Http404
+        return Ticket.objects.filter(status_ticket=self.kwargs['pk']).order_by('-updated_at')
 
 
 class SupportDetailTicketsAnswer(DataMixinCustom):

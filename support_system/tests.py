@@ -1,11 +1,10 @@
 from django.test import TestCase
-from django.test import TestCase
 from django.urls import reverse
 from django.contrib.auth.models import User
 from rest_framework import status
 import json
 
-from support_system.models import Ticket
+from support_system.models import Ticket, SupportAnswer
 
 
 class SupportViewTicketsListStatusTest(TestCase):
@@ -19,6 +18,9 @@ class SupportViewTicketsListStatusTest(TestCase):
                 "status_ticket": "Тикет заморожен",
                 "user": self.user
                 }
+        url = reverse('support-view-ticket-list-status', kwargs={'pk': 5})
+        response = self.client.get(url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_404_NOT_FOUND, msg=response.data)
         url = reverse('support-view-ticket-list-status', kwargs={'pk': self.user.id})
         response = self.client.get(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_200_OK, msg=response.data)
@@ -52,6 +54,25 @@ class SupportMessageAnswerTest(TestCase):
         self.assertEqual(response.data['status_ticket'], data['status_ticket'])
         ticket = Ticket.objects.get(**data)
         self.assertEqual(response.data['user'][list(response.data['user'])[0]], ticket.user.id)
-       # ticket = self.ticket = Ticket.objects.create(status_ticket="Тикет решен", user_id=self.user.id)
-       # response = self.client.put(url, data=ticket, content_type='application/json')
-       # self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.client.logout()
+        response = self.client.get(url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, msg=response.data)
+
+    def test_user_ask(self):
+        self.client.force_login(self.user)
+        url = reverse('user-ask', kwargs={'pk': self.user.id})
+        data = {
+            'title': 'Test task 1',
+            'content': 'Test text tack 1',
+            'support_answer': []
+        }
+        response = self.client.get(url, data=data, content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_200_OK, msg=response.data)
+        self.assertEqual(response.data['title'], data['title'])
+        self.assertEqual(response.data['content'], data['content'])
+        self.assertEqual(response.data['support_answer'], data['support_answer'])
+        data = {
+            "user_ask": "Hello support"
+        }
+        response = self.client.post(url, data=json.dumps(data), content_type='application/json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED, msg=response.data)
