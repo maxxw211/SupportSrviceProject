@@ -1,4 +1,4 @@
-version: "3.9"
+version: "3"
 
 services:
   web:
@@ -21,3 +21,10 @@ services:
     container_name: my_db
     env_file:
       - support_service/.env
+
+  adminer:
+    image: adminer:latest
+    container_name: adminer
+    ports:
+      - '8080:8080'
+
