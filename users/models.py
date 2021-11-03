@@ -1,4 +1,5 @@
 from django.db import models
+
 from support_system.models import Ticket
 
 

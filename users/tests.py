@@ -1,11 +1,14 @@
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
-from rest_framework import status
 import json
-from datetime import datetime
+
+from django.contrib.auth.models import User
+
+from django.test import TestCase
+
+from django.urls import reverse
+
+from rest_framework import status
+
 from support_system.models import Ticket
-from users.views import UserAsk
 
 
 class ListCreateTicketTest(TestCase):
@@ -72,6 +75,3 @@ class TicketDetailViewTest(TestCase):
         self.client.logout()
         response = self.client.get(url, data=data, content_type='application/json')
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN, msg=response.data)
-
-
-

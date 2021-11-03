@@ -1,10 +1,14 @@
-from django.test import TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
-from rest_framework import status
 import json
 
-from support_system.models import Ticket, SupportAnswer
+from django.contrib.auth.models import User
+
+from django.test import TestCase
+
+from django.urls import reverse
+
+from rest_framework import status
+
+from support_system.models import Ticket
 
 
 class SupportViewTicketsListStatusTest(TestCase):

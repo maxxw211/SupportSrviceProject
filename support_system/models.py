@@ -47,7 +47,7 @@ class SupportAnswer(models.Model):
     answer = models.TextField(verbose_name='Ответ')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата ответа')
     ticket = models.ForeignKey(
-        Ticket,  blank=True,
+        Ticket, blank=True,
         null=True, related_name='support_answer',
         on_delete=models.CASCADE, verbose_name='Тикет')
 

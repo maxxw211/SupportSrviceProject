@@ -1,10 +1,12 @@
 from django.http import Http404
+
 from rest_framework import status
-from rest_framework.generics import ListAPIView, get_object_or_404
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
-from support_system.models import Ticket, SupportAnswer
-from support_system.serializers import SupportSerializer, SupportAnswerSerializer
+
+from support_system.models import SupportAnswer, Ticket
+from support_system.serializers import SupportAnswerSerializer, SupportSerializer
 from support_system.utils import DataMixinCustom
 
 
