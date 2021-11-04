@@ -78,16 +78,28 @@ WSGI_APPLICATION = 'support_service.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': environ.get('POSTGRES_DB'),
-        'PASSWORD': environ.get('POSTGRES_PASSWORD'),
-        'USER': environ.get('POSTGRES_USER'),
-        'HOST': 'db',
-        'PORT': 5432,
+if environ.get('GITHUB_WORKFLOW'):
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'github_actions',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '127.0.0.1',
+            'PORT': 5432,
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': environ.get('POSTGRES_DB'),
+            'PASSWORD': environ.get('POSTGRES_PASSWORD'),
+            'USER': environ.get('POSTGRES_USER'),
+            'HOST': 'db',
+            'PORT': 5432,
+        }
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
