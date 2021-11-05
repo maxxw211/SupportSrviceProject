@@ -33,7 +33,7 @@ class ResponseToUserSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = SupportResponse
-        fields = ['id', 'answer', 'created_at']
+        fields = ['id', 'question', 'created_at']
 
 
 class UserQuestionSerializers(serializers.ModelSerializer):
@@ -42,7 +42,7 @@ class UserQuestionSerializers(serializers.ModelSerializer):
 
     class Meta:
         model = UserQuestion
-        fields = ['id', 'answer', 'created_at']
+        fields = ['id', 'question', 'created_at']
 
 
 class UserSerializers(serializers.ModelSerializer):
