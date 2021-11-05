@@ -11,6 +11,6 @@ class UserAsks(models.Model):
     ticket = models.ForeignKey(Ticket, blank=True, null=True, related_name='user_ask', on_delete=models.CASCADE)
 
     class Meta:
-        #db_table = 'user_ask'
+        db_table = 'user_question'
         verbose_name = "Вопрос пользователя"
         verbose_name_plural = "Вопросы пользователей"

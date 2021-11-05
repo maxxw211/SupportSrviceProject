@@ -15,7 +15,7 @@ class TicketAdmin(admin.ModelAdmin):
     list_display_links = ('id', 'title')
     search_fields = ('title', 'content')
     list_editable = ('status_ticket',)
-    list_filter = ('status_ticket', 'title')
+    list_filter = ('status_ticket', 'user')
 
 
 admin.site.register(SupportAnswer, SupportAnswerAdmin)
