@@ -4,12 +4,12 @@ from rest_framework import serializers
 
 from support_system.models import SupportAnswer, Ticket
 
-from users.models import UserAsks
+from users.models import UserQuestion
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
     """
-    use: >>> class CreateUserView()
+    use: >>> class CreateUser()
     """
     password = serializers.CharField(write_only=True)
 
@@ -26,8 +26,8 @@ class UserRegisterSerializer(serializers.ModelSerializer):
         fields = ["id", "username", "password", ]
 
 
-class AnswerForUserSerializers(serializers.ModelSerializer):
-    """ Ответ суппорта use: >>> UserAskSerializer"""
+class ResponseToUserSerializers(serializers.ModelSerializer):
+    """ Ответ суппорта use: >>> UserAskQuestionSerializer"""
 
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
@@ -36,12 +36,12 @@ class AnswerForUserSerializers(serializers.ModelSerializer):
         fields = ['id', 'answer', 'created_at']
 
 
-class AskUserSerializers(serializers.ModelSerializer):
+class UserQuestionSerializers(serializers.ModelSerializer):
     """ Вопрос пользователя use: >>> TicketSerializer >>> SupportDetailSerializer """
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
-        model = UserAsks
+        model = UserQuestion
         fields = ['id', 'answer', 'created_at']
 
 
@@ -53,11 +53,11 @@ class UserSerializers(serializers.ModelSerializer):
         fields = ['id', 'username', 'first_name', 'last_name']
 
 
-class UserAskSerializer(serializers.ModelSerializer):
+class UserAskQuestionSerializer(serializers.ModelSerializer):
     """ Serializer пользователь задает вопрос api/user/message/id/ """
 
     user_ask = serializers.CharField(max_length=255, write_only=True, style={'base_template': 'textarea.html'})
-    support_answer = AnswerForUserSerializers(many=True, read_only=True)
+    support_answer = ResponseToUserSerializers(many=True, read_only=True)
 
     class Meta:
         model = Ticket
@@ -67,16 +67,16 @@ class UserAskSerializer(serializers.ModelSerializer):
 
 class TicketSerializer(serializers.ModelSerializer):
     """
-    use: >>> class ListCreateTicket():
+    use: >>> class UserCreateTicket():
     use: >>> class SupportDetailTicketsAnswer():
-    use: >>> class TicketDetailView():
+    use: >>> class UserSeesDetailsTicket():
     """
 
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
     update_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
-    support_answer = AnswerForUserSerializers(many=True, read_only=True)
-    user_ask = AskUserSerializers(many=True, read_only=True)
+    support_answer = ResponseToUserSerializers(many=True, read_only=True)
+    user_ask = UserQuestionSerializers(many=True, read_only=True)
 
     class Meta:
         model = Ticket

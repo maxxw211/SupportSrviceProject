@@ -1,10 +1,10 @@
 from django.urls import path
 
-from users.views import ListCreateTicket, TicketDetailView, UserAsk, CreateUserView
+from users.views import UserCreateTicket, UserSeesDetailsTicket, UserQuestion, CreateUser
 
 urlpatterns = [
-    path('register/', CreateUserView.as_view()),
-    path('all/', ListCreateTicket.as_view(), name='list-create-ticket'),
-    path('detail/<int:pk>/', TicketDetailView.as_view(), name='ticket-detail-view'),
-    path('message/<int:pk>/', UserAsk.as_view(), name='user-ask'),
+    path('register/', CreateUser.as_view()),
+    path('all/', UserCreateTicket.as_view(), name='list-create-ticket'),
+    path('detail/<int:pk>/', UserSeesDetailsTicket.as_view(), name='ticket-detail-view'),
+    path('message/<int:pk>/', UserQuestion.as_view(), name='user-ask'),
 ]

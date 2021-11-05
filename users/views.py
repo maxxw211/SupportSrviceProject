@@ -6,12 +6,12 @@ from rest_framework.response import Response
 
 from support_system.models import Ticket
 
-from users.models import UserAsks
+from users.models import UserQuestion
 
-from users.serializers import UserAskSerializer, TicketSerializer, UserRegisterSerializer
+from users.serializers import UserAskQuestionSerializer, TicketSerializer, UserRegisterSerializer
 
 
-class CreateUserView(ListCreateAPIView):
+class CreateUser(ListCreateAPIView):
     """
     Создаем Пользователя
     Используемые endpoints:
@@ -27,7 +27,7 @@ class CreateUserView(ListCreateAPIView):
     queryset = User.objects.all()
 
 
-class ListCreateTicket(ListCreateAPIView):
+class UserCreateTicket(ListCreateAPIView):
     """ Пользователь пишет тикет и отправляет его, а так же он может видеть все свои тикеты
     и всю информацию связанную с ними.
     Используемые endpoints:
@@ -45,7 +45,7 @@ class ListCreateTicket(ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 
-class TicketDetailView(ListAPIView):
+class UserSeesDetailsTicket(ListAPIView):
     """ Пользователь может просматривать историю тикета
     Используемые endpoints:
     api/user/detail/1/ - Детальная иформация по каждому отдельно взятому тикету ( по id тикета)
@@ -59,14 +59,14 @@ class TicketDetailView(ListAPIView):
         return Ticket.objects.filter(user=user, id=self.kwargs['pk'])
 
 
-class UserAsk(ListCreateAPIView):
+class UserQuestion(ListCreateAPIView):
     """ Сообщение пользователя
     Используемые endpoints:
     api/user/message/1/ -Пользователь может написать доп. вопрос по тикету (по его id)
     """
 
     permission_classes = [IsAuthenticated, ]
-    serializer_class = UserAskSerializer
+    serializer_class = UserAskQuestionSerializer
 
     def get_queryset(self):
         try:
@@ -89,7 +89,7 @@ class UserAsk(ListCreateAPIView):
             serializer = self.get_serializer(data=request.data)
             queryset, id = self.get_queryset()
             if serializer.is_valid(raise_exception=True) and id:
-                UserAsks.objects.create(ticket_id=id, answer=serializer.validated_data['user_ask'])
+                UserQuestion.objects.create(ticket_id=id, answer=serializer.validated_data['user_ask'])
 
                 return Response(status=status.HTTP_201_CREATED)
         except TypeError:

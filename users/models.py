@@ -3,7 +3,7 @@ from django.db import models
 from support_system.models import Ticket
 
 
-class UserAsks(models.Model):
+class UserQuestion(models.Model):
     """ User message """
 
     answer = models.TextField(verbose_name='Вопрос пользователя')
@@ -13,4 +13,4 @@ class UserAsks(models.Model):
     class Meta:
         db_table = 'user_question'
         verbose_name = "Вопрос пользователя"
-        verbose_name_plural = "Вопросы пользователей"
+        verbose_name_plural = "Пользовательские вопросы"
