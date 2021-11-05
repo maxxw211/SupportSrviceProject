@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 from support_system.models import SupportAnswer, Ticket
-from support_system.serializers import SupportAnswerSerializer, SupportSerializer
+from support_system.serializers import SupportMsgSerializer, SupportSerializer
 from support_system.utils import DataMixinCustom
 
 
@@ -50,7 +50,7 @@ class SupportMessageAnswer(DataMixinCustom):
 
     """
 
-    serializer_class = SupportAnswerSerializer
+    serializer_class = SupportMsgSerializer
 
     def post(self, request, *args, **kwargs):
         try:

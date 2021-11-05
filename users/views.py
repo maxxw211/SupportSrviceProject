@@ -1,15 +1,30 @@
-from rest_framework import status
+from django.contrib.auth.models import User
+from rest_framework import status, permissions
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from support_system.models import Ticket
 
-from support_system.serializers import TicketSerializer
-
 from users.models import UserAsks
 
-from users.serializers import UserAskSerializer
+from users.serializers import UserAskSerializer, TicketSerializer, UserRegisterSerializer
+
+
+class CreateUserView(ListCreateAPIView):
+    """
+    Создаем Пользователя
+    Используемые endpoints:
+    api/user/register/ - Регистрация пользователя
+    api/user/all/ - Текущий пользователь видит все свои тикеты
+    api/user/detail/1/ - Детальная информация по конкретному тикету ( по его id)
+    api/user/message/1/ -Пользователь пишет доп. вопрос по тикету (по его id)
+    """
+
+    model = User
+    permission_classes = [permissions.AllowAny, ]
+    serializer_class = UserRegisterSerializer
+    queryset = User.objects.all()
 
 
 class ListCreateTicket(ListCreateAPIView):

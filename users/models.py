@@ -9,3 +9,8 @@ class UserAsks(models.Model):
     answer = models.TextField(verbose_name='Вопрос пользователя')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата ответа')
     ticket = models.ForeignKey(Ticket, blank=True, null=True, related_name='user_ask', on_delete=models.CASCADE)
+
+    class Meta:
+        #db_table = 'user_ask'
+        verbose_name = "Вопрос пользователя"
+        verbose_name_plural = "Вопросы пользователей"

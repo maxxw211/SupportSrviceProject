@@ -2,20 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class StatusTicket(models.Model):
-    """ Ticket statuses: resolved, unresolved, frozen """
-
-    name = models.CharField(max_length=125, verbose_name='Статус тикета')
-
-    class Meta:
-        db_table = 'status_ticket'
-        verbose_name = " Статус тикета"
-        verbose_name_plural = "Статусы тикетов"
-
-    def __str__(self):
-        return f'{self.id}. {self.name}'
-
-
 class Ticket(models.Model):
     """ Description of the Ticket model """
 
