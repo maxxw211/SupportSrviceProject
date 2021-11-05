@@ -5,12 +5,12 @@ from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from support_system.models import SupportAnswer, Ticket
+from support_system.models import SupportResponse, Ticket
 from support_system.serializers import SupportMsgSerializer, SupportSerializer
 from support_system.utils import DataMixinCustom
 
 
-class SupportViewTicketsListStatus(ListAPIView):
+class SupportSeesStatusTickets(ListAPIView):
     """
     Support видит решенные, нерешенные и замороженные тикеты
     Используемые endpoints:
@@ -29,7 +29,7 @@ class SupportViewTicketsListStatus(ListAPIView):
         return Ticket.objects.filter(status_ticket=self.kwargs['pk']).order_by('-updated_at')
 
 
-class SupportDetailTicketsAnswer(DataMixinCustom):
+class SupportSeesDetailInfoTicketsResponse(DataMixinCustom):
     """
     Support видит детальную информацию тикета (по его id) и может поменять статус
     Используемые endpoints:
@@ -40,7 +40,7 @@ class SupportDetailTicketsAnswer(DataMixinCustom):
     """
 
 
-class SupportMessageAnswer(DataMixinCustom):
+class SupportResponseMessage(DataMixinCustom):
     """
     Support может написать пользователю ответ по выбраному тикету (по его id):
     Используемые endpoints:
@@ -57,7 +57,7 @@ class SupportMessageAnswer(DataMixinCustom):
             serializer = self.get_serializer(data=request.data)
             queryset, id = self.get_queryset()
             if serializer.is_valid(raise_exception=True) and id:
-                SupportAnswer.objects.create(ticket_id=id, answer=serializer.validated_data['support_answer'])
+                SupportResponse.objects.create(ticket_id=id, answer=serializer.validated_data['support_answer'])
                 return Response(status=status.HTTP_201_CREATED)
         except TypeError:
             return Response(status=status.HTTP_400_BAD_REQUEST)

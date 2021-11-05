@@ -3,14 +3,14 @@ from rest_framework.generics import ListCreateAPIView
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
-from support_system.serializers import SupportDetailSerializer
+from support_system.serializers import SupportDetailTicketSerializer
 
 from .models import Ticket
 
 
 class DataMixinCustom(ListCreateAPIView):
     permission_classes = [IsAdminUser]
-    serializer_class = SupportDetailSerializer
+    serializer_class = SupportDetailTicketSerializer
 
     def get_queryset(self):
         try:

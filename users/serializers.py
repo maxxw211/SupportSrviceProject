@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 
 from rest_framework import serializers
 
-from support_system.models import SupportAnswer, Ticket
+from support_system.models import SupportResponse, Ticket
 
 from users.models import UserQuestion
 
@@ -32,12 +32,12 @@ class ResponseToUserSerializers(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
-        model = SupportAnswer
+        model = SupportResponse
         fields = ['id', 'answer', 'created_at']
 
 
 class UserQuestionSerializers(serializers.ModelSerializer):
-    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportDetailSerializer """
+    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportDetailTicketSerializer """
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
@@ -46,7 +46,7 @@ class UserQuestionSerializers(serializers.ModelSerializer):
 
 
 class UserSerializers(serializers.ModelSerializer):
-    """  Описание пользователя use: >>> SupportSerializer >>> SupportDetailSerializer"""
+    """  Описание пользователя use: >>> SupportSerializer >>> SupportDetailTicketSerializer"""
 
     class Meta:
         model = User
@@ -68,7 +68,7 @@ class UserAskQuestionSerializer(serializers.ModelSerializer):
 class TicketSerializer(serializers.ModelSerializer):
     """
     use: >>> class UserCreateTicket():
-    use: >>> class SupportDetailTicketsAnswer():
+    use: >>> class SupportSeesDetailInfoTicketsResponse():
     use: >>> class UserSeesDetailsTicket():
     """
 

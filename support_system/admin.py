@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import SupportAnswer, Ticket
+from .models import SupportResponse, Ticket
 
 
 class SupportAnswerAdmin(admin.ModelAdmin):
@@ -18,5 +18,5 @@ class TicketAdmin(admin.ModelAdmin):
     list_filter = ('status_ticket', 'user')
 
 
-admin.site.register(SupportAnswer, SupportAnswerAdmin)
+admin.site.register(SupportResponse, SupportAnswerAdmin)
 admin.site.register(Ticket, TicketAdmin)

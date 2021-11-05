@@ -7,7 +7,7 @@ from .models import Ticket
 
 class SupportSerializer(serializers.ModelSerializer):
     """
-    use: >>> class SupportViewTicketsListStatus():
+    use: >>> class SupportSeesStatusTickets():
 
     """
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
@@ -33,7 +33,7 @@ class SupportMsgSerializer(serializers.ModelSerializer):
         read_only_fields = ('title', 'content')
 
 
-class SupportDetailSerializer(serializers.ModelSerializer):
+class SupportDetailTicketSerializer(serializers.ModelSerializer):
     status_ticket = serializers.ChoiceField(choices=Ticket.StatusTicket.choices, source='get_status_ticket_display')
     user = UserSerializers(read_only=True)
     support_answer = ResponseToUserSerializers(many=True, read_only=True)

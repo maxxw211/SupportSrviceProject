@@ -28,7 +28,7 @@ class Ticket(models.Model):
         return f'{self.title}'
 
 
-class SupportAnswer(models.Model):
+class SupportResponse(models.Model):
     """ Support response """
     answer = models.TextField(verbose_name='Ответ')
     created_at = models.DateTimeField(auto_now_add=True, verbose_name='Дата ответа')
