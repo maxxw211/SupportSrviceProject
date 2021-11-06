@@ -59,7 +59,7 @@ class UserSeesDetailsTicket(ListAPIView):
         return Ticket.objects.filter(user=user, id=self.kwargs['pk'])
 
 
-class UserQuestion(ListCreateAPIView):
+class UserQuestions(ListCreateAPIView):
     """ Сообщение пользователя
     Используемые endpoints:
     api/user/message/1/ -Пользователь может написать доп. вопрос по тикету (по его id)

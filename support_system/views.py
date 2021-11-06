@@ -14,7 +14,7 @@ class SupportSeesStatusTickets(ListAPIView):
     """
     Support видит решенные, нерешенные и замороженные тикеты
     Используемые endpoints:
-    api/support_system/status/<id> (id: 1-'тикет заморожен'; 2-'тикет не решен'; 3 -'тикет не решен')
+    api/support_system/status/<id> (id: 1-'тикет заморожен'; 2-'тикет решен'; 3 -'тикет не решен')
     api/support_system/detail/<id> - Детальная иформация по конкретному тикету ( по его id), возможность поменять статус
     api/support_system/message/<id> -Support может написать пользователю ответ на его тикет ( id - тикет)
 
