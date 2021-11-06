@@ -4,7 +4,8 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 RUN apt-get install -y --no-install-recommends \build-essential
-ADD requirements.txt /
-RUN pip install -r /requirements.txt
+RUN mkdir /app
 WORKDIR /app
-ADD . /app
+COPY . /app
+RUN pip install -r /app/requirements.txt
+
