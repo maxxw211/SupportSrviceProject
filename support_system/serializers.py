@@ -33,7 +33,7 @@ class SupportMsgSerializer(serializers.ModelSerializer):
         read_only_fields = ('title', 'content')
 
 
-class SupportDetailTicketSerializer(serializers.ModelSerializer):
+class SupportSeesDetailTicketSerializer(serializers.ModelSerializer):
     status_ticket = serializers.ChoiceField(choices=Ticket.StatusTicket.choices, source='get_status_ticket_display')
     user = UserSerializers(read_only=True)
     support_answer = ResponseToUserSerializers(many=True, read_only=True)

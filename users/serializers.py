@@ -37,7 +37,7 @@ class ResponseToUserSerializers(serializers.ModelSerializer):
 
 
 class UserQuestionSerializers(serializers.ModelSerializer):
-    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportDetailTicketSerializer """
+    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportSeesDetailTicketSerializer """
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
@@ -46,7 +46,7 @@ class UserQuestionSerializers(serializers.ModelSerializer):
 
 
 class UserSerializers(serializers.ModelSerializer):
-    """  Описание пользователя use: >>> SupportSerializer >>> SupportDetailTicketSerializer"""
+    """  Описание пользователя use: >>> SupportSerializer >>> SupportSeesDetailTicketSerializer"""
 
     class Meta:
         model = User
