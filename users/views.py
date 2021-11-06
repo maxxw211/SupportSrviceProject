@@ -70,15 +70,15 @@ class UserQuestions(ListCreateAPIView):
 
     def get_queryset(self):
         try:
-            id = self.kwargs['pk']
-            queryset = Ticket.objects.filter(user_id=self.request.user.pk).get(id=id)
-            return queryset, id
+            ticket_pk = self.kwargs['pk']
+            queryset = Ticket.objects.filter(user_id=self.request.user.pk).get(id=ticket_pk)
+            return queryset, ticket_pk
         except Ticket.DoesNotExist:
             return None
 
     def get(self, request, *args, **kwargs):
         try:
-            queryset, id = self.get_queryset()
+            queryset, ticket_pk = self.get_queryset()
             serializer = self.get_serializer(queryset)
             return Response(serializer.data, status=status.HTTP_200_OK)
         except TypeError:
@@ -87,9 +87,9 @@ class UserQuestions(ListCreateAPIView):
     def post(self, request, *args, **kwargs):
         try:
             serializer = self.get_serializer(data=request.data)
-            queryset, id = self.get_queryset()
-            if serializer.is_valid(raise_exception=True) and id:
-                UserQuestion.objects.create(ticket_id=id, answer=serializer.validated_data['user_ask'])
+            queryset, ticket_pk = self.get_queryset()
+            if serializer.is_valid(raise_exception=True) and ticket_pk:
+                UserQuestion.objects.create(ticket_id=ticket_pk, answer=serializer.validated_data['user_ask'])
 
                 return Response(status=status.HTTP_201_CREATED)
         except TypeError:
