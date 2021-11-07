@@ -8,9 +8,6 @@ from users.models import UserQuestion
 
 
 class UserRegisterSerializer(serializers.ModelSerializer):
-    """
-    use: >>> class CreateUser()
-    """
     password = serializers.CharField(write_only=True)
 
     def create(self, validated_data):
@@ -27,8 +24,6 @@ class UserRegisterSerializer(serializers.ModelSerializer):
 
 
 class ResponseToUserSerializers(serializers.ModelSerializer):
-    """ Ответ суппорта use: >>> UserAskQuestionSerializer"""
-
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
@@ -37,7 +32,6 @@ class ResponseToUserSerializers(serializers.ModelSerializer):
 
 
 class UserQuestionSerializers(serializers.ModelSerializer):
-    """ Вопрос пользователя use: >>> TicketSerializer >>> SupportSeesDetailTicketSerializer """
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
 
     class Meta:
@@ -46,16 +40,12 @@ class UserQuestionSerializers(serializers.ModelSerializer):
 
 
 class UserSerializers(serializers.ModelSerializer):
-    """  Описание пользователя use: >>> SupportSerializer >>> SupportSeesDetailTicketSerializer"""
-
     class Meta:
         model = User
         fields = ['id', 'username', 'first_name', 'last_name']
 
 
 class UserAskQuestionSerializer(serializers.ModelSerializer):
-    """ Serializer пользователь задает вопрос api/user/message/id/ """
-
     user_ask = serializers.CharField(max_length=255, write_only=True, style={'base_template': 'textarea.html'})
     support_answer = ResponseToUserSerializers(many=True, read_only=True)
 
@@ -66,12 +56,6 @@ class UserAskQuestionSerializer(serializers.ModelSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
-    """
-    use: >>> class UserCreateTicket():
-    use: >>> class SupportSeesDetailInfoTicketsResponse():
-    use: >>> class UserSeesDetailsTicket():
-    """
-
     created_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
     update_at = serializers.DateTimeField(format="%Y-%m-%dT%H:%M:%S", read_only=True)
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
