@@ -41,7 +41,10 @@ class SupportResponseMessage(DataMixinCustom):
             serializer = self.get_serializer(data=request.data)
             queryset, sup_resp_id = self.get_queryset()
             if serializer.is_valid(raise_exception=True) and sup_resp_id:
-                SupportResponse.objects.create(ticket_id=sup_resp_id, answer=serializer.validated_data['support_answer'])
+                SupportResponse.objects.create(
+                    ticket_id=sup_resp_id,
+                    answer=serializer.validated_data['support_answer']
+                )
                 return Response(status=status.HTTP_201_CREATED)
         except TypeError:
             return Response(status=status.HTTP_400_BAD_REQUEST)

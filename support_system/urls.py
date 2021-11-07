@@ -1,6 +1,7 @@
 from django.urls import path
 
-from .views import SupportSeesDetailInfoTicketsResponse, SupportResponseMessage, SupportSeesStatusTickets
+from .views import SupportResponseMessage, SupportSeesDetailInfoTicketsResponse, SupportSeesStatusTickets
+
 
 urlpatterns = [
     path('status/<int:pk>', SupportSeesStatusTickets.as_view(), name='support-view-ticket-list-status'),

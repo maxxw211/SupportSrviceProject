@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from users.serializers import UserAskQuestionSerializer, UserSerializers, ResponseToUserSerializers
+from users.serializers import ResponseToUserSerializers, UserAskQuestionSerializer, UserSerializers
 
 from .models import Ticket
 

@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
-from rest_framework import status, permissions
+from rest_framework import permissions, status
+
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -8,7 +9,7 @@ from support_system.models import Ticket
 
 from users.models import UserQuestion
 
-from users.serializers import UserAskQuestionSerializer, TicketSerializer, UserRegisterSerializer
+from users.serializers import TicketSerializer, UserAskQuestionSerializer, UserRegisterSerializer
 
 
 class CreateUser(ListCreateAPIView):
