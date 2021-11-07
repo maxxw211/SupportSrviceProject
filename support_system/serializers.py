@@ -6,13 +6,8 @@ from .models import Ticket
 
 
 class SupportSerializer(serializers.ModelSerializer):
-    """
-    use: >>> class SupportSeesStatusTickets():
-
-    """
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
     user = UserSerializers()
-    # support_answer = ResponseToUserSerializers(many=True, read_only=True)
     user_ask = UserAskQuestionSerializer(many=True, read_only=True)
 
     class Meta:
@@ -21,7 +16,6 @@ class SupportSerializer(serializers.ModelSerializer):
 
 
 class SupportMsgSerializer(serializers.ModelSerializer):
-    """"""
     status_ticket = serializers.CharField(source='get_status_ticket_display', read_only=True)
     user = UserSerializers(read_only=True)
     user_ask = UserAskQuestionSerializer(many=True, read_only=True)

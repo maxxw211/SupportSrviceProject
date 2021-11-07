@@ -11,13 +11,8 @@ from support_system.utils import DataMixinCustom
 
 
 class SupportSeesStatusTickets(ListAPIView):
-    """
-    Support видит решенные, нерешенные и замороженные тикеты
-    Используемые endpoints:
-    api/support_system/status/<id> (id: 1-'тикет заморожен'; 2-'тикет решен'; 3 -'тикет не решен')
-    api/support_system/detail/<id> - Детальная иформация по конкретному тикету ( по его id), возможность поменять статус
-    api/support_system/message/<id> -Support может написать пользователю ответ на его тикет ( id - тикет)
-
+    """ Саппорт видит статус тикета по его  api/support_system/status/<id>
+    (id: 1-'тикет заморожен'; 2-'тикет решен'; 3 -'тикет не решен')
     """
 
     serializer_class = SupportSerializer
@@ -31,24 +26,13 @@ class SupportSeesStatusTickets(ListAPIView):
 
 class SupportSeesDetailInfoTicketsResponse(DataMixinCustom):
     """
-    Support видит детальную информацию тикета (по его id) и может поменять статус
-    Используемые endpoints:
-    api/support_system/status/<id> (id: 1-'тикет заморожен'; 2-'тикет не решен'; 3 -'тикет не решен')
-    api/support_system/detail/<id> - Детальная иформация по конкретному тикету ( по его id), возможность поменять статус
-    api/support_system/message/<id> -Support может написать пользователю ответ на его тикет ( id - тикет)
-
+    Саппорт видит всю информацию по каждому тикету пользователя (по id тикета) и имеет возможность изменять статус
+    api/support_system/detail/<id>
     """
 
 
 class SupportResponseMessage(DataMixinCustom):
-    """
-    Support может написать пользователю ответ по выбраному тикету (по его id):
-    Используемые endpoints:
-    api/support_system/status/<id> (id: 1-'тикет заморожен'; 2-'тикет не решен'; 3 -'тикет не решен')
-    api/support_system/detail/<id> - Детальная иформация по конкретному тикету ( по его id), возможность поменять статус
-    api/support_system/message/<id> -Support может написать пользователю ответ на его тикет ( id - тикет)
-
-    """
+    """ Саппорт имеет возможность дать ответ пользователю  api/support_system/message/<id> (по id тикета) """
 
     serializer_class = SupportMsgSerializer
 
