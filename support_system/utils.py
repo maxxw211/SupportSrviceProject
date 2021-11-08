@@ -7,7 +7,6 @@ from support_system.serializers import SupportSeesDetailTicketSerializer
 
 from .models import Ticket
 
-
 class DataMixinCustom(ListCreateAPIView):
     permission_classes = [IsAdminUser]
     serializer_class = SupportSeesDetailTicketSerializer

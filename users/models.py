@@ -1,6 +1,6 @@
-from django.db import models
 
 from support_system.models import Ticket
+from django.db import models
 
 
 class UserQuestion(models.Model):
