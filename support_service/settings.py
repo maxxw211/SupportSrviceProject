@@ -81,7 +81,7 @@ WSGI_APPLICATION = 'support_service.wsgi.application'
 
 # Если PostgreSQL  не установлен на компьютер можно взаимодействовать с PostgreSQL в PeCharm и разрабатывать
 # запустив его в докер-контейнере и пробросив наружу порт следующим образом: в cmd запускаем команду
-# docker run -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=admin -e POSTGRES_DB=support_db -p 5432:5432 postgres
+# docker run -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=admin -e POSTGRES_DB=support_db -p 5432:5432 -d postgres
 
 DATABASES = {
     'default': {
