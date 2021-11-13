@@ -9,13 +9,14 @@ services:
     volumes:
       -  .:/app
     command: >
-      sh -c "python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+      sh -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
     ports:
       - "8000:8000"
     env_file:
       - support_service/.env
     depends_on:
       - db
+      - cache
   db:
     image: postgres:latest
     ports:
@@ -30,3 +31,6 @@ services:
     ports:
       - '8080:8080'
 
+  cache:
+    image: redis:latest
+    container_name: redis_cache

@@ -81,29 +81,36 @@ WSGI_APPLICATION = 'support_service.wsgi.application'
 
 # Если PostgreSQL  не установлен на компьютер можно взаимодействовать с PostgreSQL в PeCharm и разрабатывать
 # запустив его в докер-контейнере и пробросив наружу порт следующим образом: в cmd запускаем команду
-# docker run -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=admin -e POSTGRES_DB=support_db -p 5432:5432 -d postgres
+# docker run -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=Admin -e POSTGRES_DB=support_db -p 5432:5432 -d postgres
+# и раскоментируйте код ниже
 
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'support_db',
+#         'USER': 'Admin',
+#         'PASSWORD': '12345',
+#         'HOST': 'localhost',
+#         'PORT': 5432,
+#     }
+# }
+
+if environ.get('GITHUB_WORKFLOW'):
+    db = 'localhost'
+else:
+    db = 'db'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'support_db',
-        'USER': 'admin',
-        'PASSWORD': '12345',
-        'HOST': 'localhost',
+        'NAME': environ.get('POSTGRES_DB'),
+        'PASSWORD': environ.get('POSTGRES_PASSWORD'),
+        'USER': environ.get('POSTGRES_USER'),
+        'HOST': db,
+        # 'HOST': 'localhost',
         'PORT': 5432,
     }
 }
-
-# DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#        'NAME': environ.get('POSTGRES_DB'),
-#        'PASSWORD': environ.get('POSTGRES_PASSWORD'),
-#        'USER': environ.get('POSTGRES_USER'),
-#        'HOST': 'db',
-#        'PORT': 5432,
-#    }
-# }
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
@@ -157,4 +164,12 @@ AUTH_PASSWORD_VALIDATORS = [
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.LimitOffsetPagination',
     'PAGE_SIZE': 2
+}
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://cache:6379/0"
+        # "LOCATION": "redis://127.0.0.1:6379/1"
+    }
 }

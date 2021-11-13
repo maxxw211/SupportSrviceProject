@@ -1,4 +1,4 @@
-FROM python:3.9
+FROM python:3.10
 
 RUN apt-get update
 RUN apt-get -y upgrade
@@ -8,4 +8,5 @@ RUN mkdir /app
 WORKDIR /app
 COPY . /app
 RUN pip install -r /app/requirements.txt
+EXPOSE 8000
 
